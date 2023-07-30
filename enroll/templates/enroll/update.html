@@ -1,0 +1,18 @@
+{% extends 'enroll/parent.html' %}
+{% load static %}
+{% block content %}
+<div class="row">
+    <div class="container col-sm-8">
+        <h4 class="alert alert-info text-center">Update Student Data</h4>
+         <form action="" method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" value="Update" class="btn btn-success">
+            <a href=" {% url 'home' %} " class="btn btn-primary">back to home</a>
+         </form>
+    </div>
+</div>
+
+
+
+{% endblock content %}

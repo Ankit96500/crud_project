@@ -1,0 +1,51 @@
+{% extends 'enroll/parent.html' %}
+{% load static %}
+{% block content %}
+<div class="row m-5" >
+    <div class="container col-sm-4">
+        <h4 class="alert alert-info">Add New Student</h4>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" value="Add" class="btn btn-success mt-4">
+        </form>
+    </div>
+
+    <div class="container col-sm-6">
+      <h4 class="alert alert-info text-center"> Show Student Database</h4>
+      {% if show %}
+        <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">NAME</th>
+                <th scope="col">EMAIL</th>
+                <th scope="col">PASSWORD</th>
+                <th scope="col">ACTIONS</th>
+              </tr>
+            </thead>
+            
+            <tbody>
+              {% for sh in show %}
+              <tr>
+                <th scope="row">{{sh.id}}</th>
+                <td>{{sh.name}}</td>
+                <td>{{sh.email}}</td>
+                <td>{{sh.password}}</td>
+                <td><a href=" {% url 'dataupdate' sh.id %} " class="btn btn-warning btn-sm">Edit</a>
+                  {% comment %}---------------------- proper use of form -----------{% endcomment %}
+                  <form action="{% url 'deldata' sh.id %}" method="post" class="d-inline">     
+                    {% csrf_token %}
+                    <input type="submit" value="Delete" class='btn btn-danger'>
+                  </form>
+                </td> 
+              </tr>
+            
+              {% endfor %}
+      {% endif %}
+            </tbody>
+          </table>
+    </div>
+</div>
+
+{% endblock content %}
